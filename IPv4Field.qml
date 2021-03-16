@@ -6,7 +6,17 @@ Item {
 
     width: blocks.width
     height: blocks.height
+
+    function setAddress(str) {
+        var blocks = String(str).split(".")
+        ipA.value = blocks[0]
+        ipB.value = blocks[1]
+        ipC.value = blocks[2]
+        ipD.value = blocks[3]
+    }
+
     property var address: ""
+
 
     function updateAddress() {
         address = ipA.value + "." + ipB.value + "." +  ipC.value + "." +  ipD.value
@@ -14,6 +24,8 @@ Item {
     Keys.onPressed:  {
         updateAddress()
     }
+
+
 
     FocusScope {
         anchors.fill: parent
@@ -26,7 +38,7 @@ Item {
                 console.log("value : " + pasteZone.text)
                 //Check if IPv6
                 //https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
-                pasteZone.text.replace(" ", "")
+                pasteZone.text.replace(/ /g, "")
                 if(pasteZone.text.match(/\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/)) {
                     console.log("Detected IPv4 Address")
                     var blocks = pasteZone.text.split(".")

@@ -7,6 +7,26 @@ Item {
     height: blocks.height
     property var address: ""
 
+    function setAddress(str) {
+        data = str.replace("::", ":0:") //
+        var blocks = data.split(":")
+        if(blocks.length < 8 && data.includes(":0:")) {
+            while(blocks.length < 8) {
+                newData = data.replace(":0:", ":0:0:") //Add one 0
+                blocks = data.splot(":")
+            }
+        }
+        console.log(blocks)
+        ipA.value = blocks[0]
+        ipB.value = blocks[1]
+        ipC.value = blocks[2]
+        ipD.value = blocks[3]
+        ipE.value = blocks[4]
+        ipF.value = blocks[5]
+        ipG.value = blocks[6]
+        ipH.value = blocks[7]
+    }
+
     function updateAddress() {
         address = ipA.value + ":" + ipB.value + ":" +  ipC.value + ":" +  ipD.value + ":" +  ipE.value + ":" +  ipF.value + ":" +  ipG.value + ":" +  ipH.value
     }
@@ -26,7 +46,7 @@ Item {
                 console.log("value : " + pasteZone.text)
                 //Check if IPv6
                 //https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
-                pasteZone.text.replace(" ", "")
+                pasteZone.text.replace(/ /g, "")
                 if(pasteZone.text.match(/([a-f0-9:]+:+)+[a-f0-9]+/)) {
                     console.log("Detected IPv6 Address")
                     //TODO : parse IPv6 and put in blocks
