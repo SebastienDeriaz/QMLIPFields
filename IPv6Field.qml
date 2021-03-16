@@ -8,15 +8,18 @@ Item {
     property var address: ""
 
     function setAddress(str) {
-        data = str.replace("::", ":0:") //
+        var data = str.replace("::", ": :") //
         var blocks = data.split(":")
-        if(blocks.length < 8 && data.includes(":0:")) {
+        var newData = data
+        if(blocks.length < 8 && data.includes(": :")) {
             while(blocks.length < 8) {
-                newData = data.replace(":0:", ":0:0:") //Add one 0
-                blocks = data.splot(":")
+                newData = newData.replace(": :", ": :0:") //Add one 0
+                blocks = newData.split(":")
             }
+
         }
-        console.log(blocks)
+        newData = newData.replace(": :", ":0:")
+        blocks = newData.split(":")
         ipA.value = blocks[0]
         ipB.value = blocks[1]
         ipC.value = blocks[2]
@@ -43,13 +46,11 @@ Item {
             onEntered: {
                 pasteZone.text = ""
                 pasteZone.paste()
-                console.log("value : " + pasteZone.text)
                 //Check if IPv6
                 //https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
                 pasteZone.text.replace(/ /g, "")
                 if(pasteZone.text.match(/([a-f0-9:]+:+)+[a-f0-9]+/)) {
-                    console.log("Detected IPv6 Address")
-                    //TODO : parse IPv6 and put in blocks
+                    setAddress(pasteZone.text)
                 }
             }
             TextInput {

@@ -9,10 +9,12 @@ Item {
 
     function setAddress(str) {
         var blocks = String(str).split(".")
-        ipA.value = blocks[0]
-        ipB.value = blocks[1]
-        ipC.value = blocks[2]
-        ipD.value = blocks[3]
+        if(blocks.length === 4) {
+            ipA.value = blocks[0]
+            ipB.value = blocks[1]
+            ipC.value = blocks[2]
+            ipD.value = blocks[3]
+        }
     }
 
     property var address: ""
@@ -35,15 +37,9 @@ Item {
             onEntered: {
                 pasteZone.text = ""
                 pasteZone.paste()
-                console.log("value : " + pasteZone.text)
-                //Check if IPv6
-                //https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
                 pasteZone.text.replace(/ /g, "")
                 if(pasteZone.text.match(/\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}\b/)) {
-                    console.log("Detected IPv4 Address")
-                    var blocks = pasteZone.text.split(".")
-                    console.log(blocks)
-                    //TODO : put  blocks into corresponding elements
+                    setAddress(pasteZone.text)
                 }
             }
             TextInput {
