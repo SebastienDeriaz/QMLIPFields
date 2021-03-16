@@ -5,8 +5,8 @@ import QtQuick.Layouts 1.12
 Item {
     property alias value: inputField.text
 
-    width: 50
-    height: 30
+    width: 40
+    height: 25
     onFocusChanged: {
         if(activeFocus) {
             inputField.forceActiveFocus()

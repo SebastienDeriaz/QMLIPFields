@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
@@ -6,8 +6,8 @@ Item {
 
     property alias value: inputField.text
 
-    width: 50
-    height: 30
+    width: 30
+    height: 25
     onFocusChanged: {
         if(activeFocus) {
             inputField.forceActiveFocus()
@@ -23,6 +23,7 @@ Item {
             anchors.fill: parent
             inputMask: "000"
             text: "   "
+            padding: 0
             horizontalAlignment: Qt.AlignHCenter
             verticalAlignment: Qt.AlignVCenter
             font.pointSize: fontSize
@@ -52,14 +53,12 @@ Item {
     }
 
 
-
-
 }
 
 
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:4}
+    D{i:0;formeditorZoom:6}
 }
 ##^##*/
